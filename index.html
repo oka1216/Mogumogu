@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>もぐもぐ！モグラたたき</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <header class="header">
+      <div class="sparkles">✨ 🐹 ✨</div>
+      <h1>もぐもぐ！<br>モグラたたき</h1>
+      <p>モグラをタップしてね！</p>
+    </header>
+
+    <section class="status">
+      <div class="status-box">
+        <span>スコア</span>
+        <strong id="score">0</strong>
+      </div>
+      <div class="status-box">
+        <span>のこり時間</span>
+        <strong><span id="time">30</span>秒</strong>
+      </div>
+    </section>
+
+    <section class="board" id="board" aria-label="モグラたたきゲーム">
+      <!-- 12個の穴はJavaScriptで作ります -->
+    </section>
+
+    <div class="message" id="message">
+      スタートを押してね！
+    </div>
+
+    <button id="startButton" class="start-button">
+      🎮 スタート！
+    </button>
+
+    <p class="footer">たくさん叩いてハイスコアを目指そう！</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
