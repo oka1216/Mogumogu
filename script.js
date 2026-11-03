@@ -18,6 +18,103 @@ let countdownTimer = null;
 let hideTimer = null;
 
 let audioContext = null;
+// ===== サウンド設定 =====
+let bgmTimer = null;
+let bgmStep = 0;
+let bgmGain = null;
+let soundEnabled = true;
+
+// 音を鳴らす準備
+function initAudio() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  if (!bgmGain) {
+    bgmGain = audioContext.createGain();
+    bgmGain.gain.value = 0.12;
+    bgmGain.connect(audioContext.destination);
+  }
+}
+
+// 音を1つ鳴らす
+function playTone(frequency, duration, volume = 0.3, type = "sine") {
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = type;
+  oscillator.frequency.setValueAtTime(
+    frequency,
+    audioContext.currentTime
+  );
+
+  gain.gain.setValueAtTime(volume, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audioContext.currentTime + duration
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + duration);
+}
+
+// ディグダを叩いたときの音
+function playHitSound() {
+  playTone(880, 0.12, 0.45, "triangle");
+  playTone(1320, 0.09, 0.22, "sine");
+}
+
+// ゲーム終了音
+function playEndSound() {
+  playTone(523, 0.18, 0.3, "triangle");
+
+  setTimeout(() => {
+    playTone(659, 0.18, 0.3, "triangle");
+  }, 180);
+
+  setTimeout(() => {
+    playTone(784, 0.35, 0.35, "triangle");
+  }, 360);
+}
+
+// BGMを開始
+function startBGM() {
+  initAudio();
+  stopBGM();
+
+  const melody = [
+    523, 659, 784, 659,
+    587, 698, 880, 698,
+    523, 659, 784, 1047,
+    880, 784, 659, 523
+  ];
+
+  bgmStep = 0;
+
+  bgmTimer = setInterval(() => {
+    playTone(melody[bgmStep], 0.16, 0.12, "square");
+    bgmStep = (bgmStep + 1) % melody.length;
+  }, 220);
+}
+
+// BGMを停止
+function stopBGM() {
+  if (bgmTimer) {
+    clearInterval(bgmTimer);
+    bgmTimer = null;
+  }
+}
 
 const holes = [];
 
@@ -172,9 +269,13 @@ function startGame() {
   clearTimeout(hideTimer);
 
   score = 0;
-  timeLeft = GAME_TIME;
-  gameRunning = true;
-  currentMole = -1;
+timeLeft = GAME_TIME;
+gameRunning = true;
+
+// ★ここに追加
+startBGM();
+
+currentMole = -1;
 
   scoreDisplay.textContent = score;
   timeDisplay.textContent = timeLeft;
