@@ -24,7 +24,12 @@ for (let i = 0; i < HOLE_COUNT; i++) {
 
   const mole = document.createElement("span");
   mole.className = "mole";
-  mole.textContent = "🐹";
+  const image = document.createElement("img");
+image.src = "IMG_0765.png";
+image.alt = "ディグダ";
+image.className = "diglett-image";
+
+mole.appendChild(image);
 
   hole.appendChild(mole);
   board.appendChild(hole);
