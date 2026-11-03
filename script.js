@@ -302,6 +302,7 @@ currentMole = -1;
 // ゲーム終了
 function endGame() {
   gameRunning = false;
+  stopBGM();
 
   clearInterval(countdownTimer);
   clearTimeout(moleTimer);
