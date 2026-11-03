@@ -4,41 +4,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>もぐもぐ！モグラたたき</title>
+  <title>ディグダたたき</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="game">
-    <header class="header">
-      <div class="sparkles">✨ 🐹 ✨</div>
-      <h1>もぐもぐ！<br>モグラたたき</h1>
-      <p>モグラをタップしてね！</p>
-    </header>
+    <h1>⛏️ ディグダたたき！</h1>
+    <p class="subtitle">出てきたディグダをタップしよう！</p>
 
-    <section class="status">
-      <div class="status-box">
-        <span>スコア</span>
+    <div class="status">
+      <div>
+        スコア
         <strong id="score">0</strong>
       </div>
-      <div class="status-box">
-        <span>のこり時間</span>
+      <div>
+        のこり時間
         <strong><span id="time">30</span>秒</strong>
       </div>
-    </section>
-
-    <section class="board" id="board" aria-label="モグラたたきゲーム">
-      <!-- 12個の穴はJavaScriptで作ります -->
-    </section>
-
-    <div class="message" id="message">
-      スタートを押してね！
     </div>
 
-    <button id="startButton" class="start-button">
-      🎮 スタート！
+    <div id="board" class="board"></div>
+
+    <button id="startButton" class="start">
+      ゲームスタート！
     </button>
 
-    <p class="footer">たくさん叩いてハイスコアを目指そう！</p>
+    <p id="message" class="message">
+      ディグダをたくさん叩こう！
+    </p>
   </main>
 
   <script src="script.js"></script>
