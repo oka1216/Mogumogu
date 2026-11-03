@@ -148,7 +148,6 @@ for (let i = 0; i < HOLE_COUNT; i++) {
 
     score++;
     scoreDisplay.textContent = score;
-
     playHitSound();
 
     hole.classList.remove("active");
@@ -227,20 +226,21 @@ function playHitSound() {
       audioContext.resume();
     }
 
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
+const oscillator = audioContext.createOscillator();
+const gain = audioContext.createGain();
 
-    oscillator.type = "sine";
+// 高くてはっきりした「ピコン！」音
+oscillator.type = "triangle";
 
-    oscillator.frequency.setValueAtTime(
-      600,
-      audioContext.currentTime
-    );
+oscillator.frequency.setValueAtTime(
+  1000,
+  audioContext.currentTime
+);
 
-    oscillator.frequency.exponentialRampToValueAtTime(
-      250,
-      audioContext.currentTime + 0.12
-    );
+oscillator.frequency.exponentialRampToValueAtTime(
+  650,
+  audioContext.currentTime + 0.08
+);
 
     gain.gain.setValueAtTime(
       0.25,
