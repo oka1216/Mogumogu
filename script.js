@@ -36,7 +36,7 @@ function initAudio() {
 
   if (!bgmGain) {
     bgmGain = audioContext.createGain();
-    bgmGain.gain.value = 0.12;
+    bgmGain.gain.value = 0.06;
     bgmGain.connect(audioContext.destination);
   }
 }
